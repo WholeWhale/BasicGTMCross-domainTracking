@@ -1,22 +1,36 @@
 # Whole Whale GTM Basic Formula
 
-The file is meant to be a ready-set starting point to set basic analytics tracking on multiple sites through a single Google Tag Manager container and multiple property ids instead of views.
+This file is meant to be a ready-set starting point to set basic analytics tracking on multiple sites through a single Google Tag Manager container and multiple property ids instead of views.
 
-Make sure you have a property for each site that you will connect and one standalone cross-domain property, and make sure that each site has the same container's GTM script.
+*Make sure you have a property for each site that you will connect and one standalone cross-domain property, and make sure that each site has the same container's GTM script.*
+
+## Installation
+
+Download the .json file. In Google Tag Manager:
+
+* Click the Admin tab in your GTM container
+* Click `Import Container`
+* Click `Choose Container` File and select the .json file
+* Under `Choose a workspace`, select existing and select your default workspace
+* Under `Choose an import option`, select `merge`
+* Select `rename conflicting tags` if your container is not empty
+* Click *confirm*
+
+You are now ready to customize and use the tags. Preview and edit as needed.
    
 ## Formula Contents
 
 ### Variables
 
 * Google Analytics Settings: 
-You will need to add your cross-domain Google Analytics property ID. Already connected to the currently existing tags, it is a reusable option to not have to rewrite any general settings that your tag would share with others
+*You will need to add your cross-domain Google Analytics property ID*, which is necessary since it is already connected to the currently existing tags, This variable is a reusable option to not have to rewrite any general settings that your tag would share with others. - If you create a tag where you will need to change any of this general settings, within the tag options you can check the `Enable overriding settings in this tag` section which will allow you to update those settings for the individual tag only
 * Cross-Domain Google Analytics Settings: 
-Already connected to the currently existing tags, it is a reusable option to not have to rewrite any general settings that your tag would share with others
+Same rules as the `Google Analytics settings` apply to this variable. The difference is that this variable will apply the specific property id based on the hostname of your site and the previous variable is only used to send duplicate data to you cross-domain property
 * PII Scrubber:
-You will need to edit the code by replacing in `?!youremail\.com` and `?youremail\.com`the domain name of your sites email (make sure to keep the back slash before the dot)
-to use this variable, edit the Google Analytics Settings variable. Under "more settings" > "fields to set" add a field and fill in `customTask` under name, and `{{PII Scrubber}}`under value
-* Cross-domain GA Propety ID: 
-This variable is meant to provide the property id related to the visited page. It will check the corresponding hostname on the browser to the assigned ones on the variable and return the assigned property id. For it to work, under the `input` column you will fill the fields with the sites hostnames and fill in the related property id across from it under the `output` column 
+(*Not necessary for everyone. If you know or you believe you have Personal Identifiable Information being passed any of the URL paths of your site, this variable will rid of it*) You will need to edit the code by replacing `?!youremail\.com` and `?youremail\.com`with the domain name of your site's email (make sure to keep the back slash before the dot). 
+**_If you don't need a scrubber, follow these steps to get rid of it_**: Edit the Google Analytics Settings variable. Under "more settings" > "fields to set" click on the `-` button next to the `customTask` field with the value `{{PII Scrubber}}`. Save your settings variable and you're done
+* Cross-domain GA Propety ID: (*updates in this variable are necessary*)
+This variable is meant to provide the property id related to the visited page. It will check the corresponding hostname on the browser to the available ones in the variable and return the corelated property id. For it to work, under the `input` column you will fill the fields with the hostnames of all the site you want to have cross domain tracking on and across from each one of them, under the `output` column, fill in the field with the related property id
 
 Ie.
 
@@ -26,19 +40,19 @@ Ie.
 |sample.wholewhale.com  |   UA-XXXX321|
 |ie.wholewhale.com   |      UA-XXXX231|
 
-* Auto-Link Domains: 
-This variable makes it easy to edit how many URL domains we need to account for like in the Cross-domain GA Property ID. In this case you only need to provide a **comma separated** list of URLS: `www.wholewhale.com,sample.wholewhale.com,ie.wholewhale.com`
+* Auto-Link Domains: (*updates in this variable are necessary*)
+This variable makes it easy to edit how many URL domains we need to account for in the Cross-domain GA Property ID. To edit, you only need to provide a **comma separated** list of URLS: ie. `www.wholewhale.com,sample.wholewhale.com,ie.wholewhale.com, app.someotherurlweown.org`
 
 ### Triggers
-If not very acquainted with GTM. Triggers are like sensors (commonly called "listeners")whose solely job is to check if an action has been performed on the page by a visitor and let GTM know that the tags related to it can be executed. Each Trigger relates to an action and it contains certain requirements for it to accept it (called "rules").
+Triggers are like sensors (commonly called "listeners")whose sole job is to check if an action has been performed on site and let GTM know that the tags related to that trigger can be executed. Each Trigger relates to an action and contains certain requirements in order to fire (called "rules").
 
-* 15 Second Timer: It checks if a visitor has been on the site for 15 seconds
-* All Clicks: It checks if anything on the page has been clicked
-* All LinksL: It checks if any links have been clicked
-* All Outbound Links: it checks if any links outside of the site (AKA that have a different hostname)
-* Form Submissions: it checks if a form has been filled and sent
-* PDF Click: Checks on clicks to PDF downloadable content
-* Scroll Depth: It listents for difenrent percentage ranges that the user had scrolled through the page
+* 15 Second Timer: Fires if a visitor has been on the site for at least 15 seconds
+* All Clicks: Fires if anything on the page has been clicked
+* All Links: Fires if any link has been clicked
+* All Outbound Links: Fires if any link to an external site has been clicked(so, any link that does not contain your website's hostname) *for this to properly work, you will need to update the second rule under the `trigger fires on` where it says `yoursite.org`. You will need to change it for your site's hostname
+* Form Submissions: Fires if a form has been properly filled out and submitted
+* PDF Click: Fires on clicks to PDF downloadable content
+* Scroll Depth: Fires when users reach difenrent percentage ranges through the page
 
 ### Tags
 
@@ -72,8 +86,4 @@ Label: {{Click URL}}`
 Action: Percentage: {{Scroll Depth Threshold}}
 Label: Page URL: {{Page URL}}`
 
-## Installation
-
-After downloading the .json file, under the Admin tab within the GTM container, click `Import Container`, click `Choose Container File` and grab the .json file, then select `existing`, select your default works space, and keep `merge` as the option checked, select rename conflicting tags if your container is not empty and click confirm.
-
-You are now ready to use the tags. Preview and edit as needed. 
+ 
