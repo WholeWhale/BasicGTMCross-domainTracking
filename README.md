@@ -1,4 +1,4 @@
-# Whole Whale GTM Basic Formula
+# Whole Whale GTM Basic Cross-Domain Formula
 
 This file is meant to be a ready-set starting point to set basic analytics tracking on multiple sites through a single Google Tag Manager container and multiple property ids instead of views.
 
