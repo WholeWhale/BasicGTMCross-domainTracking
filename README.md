@@ -28,7 +28,7 @@ You are now ready to customize and use the tags. Preview and edit as needed.
 * Cross-Domain Google Analytics Settings:    
 Same rules as the `Google Analytics settings` apply to this variable. The difference is that this variable will apply the specific property id based on the hostname of your site and the previous variable is only used to send duplicate data to you cross-domain property
 * PII Scrubber:   
-You will need to edit **this variable** by replacing in the code on line 12 `?!youremail\.com` and `?youremail\.com` from line 16 with the domain name of your site's email (make sure to keep the back slash before the dot). Ie. for Whole Whale emails we would change them to: `?!wholewhale\.com` and `?wholewhale\.com`, this would for example replace https://www.wholewhale.com/example/?email=turtle@gmail.com with https://www.wholewhale.com/example/[REDACTED EMAIL] and https://www.wholewhale.com/example/?email=turtle@wholewhale.com with https://www.wholewhale.com/example/[REDACTED SELF-EMAIL].      
+You will need to edit **this variable** by replacing in the code on line 12 `?!youremail\.com` and `?youremail\.com` from line 16 with the domain name of your site's email (make sure to keep the backslash before the dot). Ie. for Whole Whale emails we would change them to: `?!wholewhale\.com` and `?wholewhale\.com`, this would for example replace https://www.wholewhale.com/example/?email=turtle@gmail.com with https://www.wholewhale.com/example/[REDACTED EMAIL] and https://www.wholewhale.com/example/?email=turtle@wholewhale.com with https://www.wholewhale.com/example/[REDACTED SELF-EMAIL].      
 **_If you don't need a scrubber, follow these steps to get rid of it_**: Edit the Google Analytics Settings and Cross-Domain Google Analytics Settings variables as follows: under "more settings" > "fields to set" click on the `-` button next to the `customTask` field with the value `{{PII Scrubber}}`. Save your settings variable and you're done
 * Cross-domain GA Propety ID: (*updates in this variable are necessary*)
 This variable is meant to provide the property id related to the visited page. It will check the corresponding hostname on the browser to the available ones in the variable and return the corelated property id. For it to work, under the `input` column you will fill the fields with the hostnames of all the site you want to have cross domain tracking on and across from each one of them, under the `output` column, fill in the field with the related property id
@@ -55,7 +55,7 @@ Triggers are like sensors (commonly called "listeners")whose sole job is to chec
 *for this to properly work, you will need to update the second rule under the `trigger fires on` where it says `yoursite.org`. You will need to change it for your site's hostname*
 * Form Submissions: Fires if a form has been properly filled out and submitted
 * PDF Click: Fires on clicks to PDF downloadable content
-* Scroll Depth: Fires when users reach difenrent percentage ranges through the page
+* Scroll Depth: Fires when users reach different percentage ranges through the page
 
 ### Tags
 
